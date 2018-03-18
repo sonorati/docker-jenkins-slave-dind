@@ -31,6 +31,10 @@ RUN adduser -G root -D jenkins && \
     wget -q https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/${SWARM_CLIENT_VERSION}/swarm-client-${SWARM_CLIENT_VERSION}.jar -P /home/jenkins/ && \
     pip install docker-compose
 
+RUN mkdir -p /opt/maven ; cd /opt/maven ; wget -O - http://mirrors.ukfast.co.uk/sites/ftp.apache.org/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz | tar zxf -
+RUN ln -s /opt/maven/apache-maven-3.5.3/bin/mvn /usr/bin
+ENV MAVEN_HOME /opt/maven
+
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
